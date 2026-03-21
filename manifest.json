@@ -2,6 +2,12 @@
   "manifest_version": 3,
   "name": "Tab Cemetery",
   "version": "1.0",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{d57bc4e9-2917-4fd5-8716-e4d6a19f201d}",
+      "strict_min_version": "109.0"
+    }
+  },
   "description": "Automatically closes inactive browser tabs to reduce memory usage and visual clutter.",
   "permissions": [
     "tabs",
@@ -9,6 +15,7 @@
     "alarms"
   ],
   "background": {
+    "scripts": ["background.js"],
     "service_worker": "background.js",
     "type": "module"
   },

@@ -3,6 +3,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     const thresholdSelect = document.getElementById('thresholdSelect');
     const buriedCountEl = document.getElementById('buriedCount');
 
+    // Add hidden dev settings automatically when loaded locally
+    await new Promise((resolve) => {
+        chrome.management.getSelf((info) => {
+            if (info && info.installType === 'development') {
+                const devOption = document.createElement('option');
+                devOption.value = "10000";
+                devOption.textContent = "10 Seconds (Dev)";
+                thresholdSelect.insertBefore(devOption, thresholdSelect.firstChild);
+            }
+            resolve();
+        });
+    });
+
     // Load initial settings
     const settings = await chrome.storage.sync.get(['enabled', 'threshold', 'tabsBuried']);
     

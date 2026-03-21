@@ -24,6 +24,15 @@ chrome.alarms.onAlarm.addListener((alarm) => {
   }
 });
 
+// Enable fast sweep automatically for unpacked local development
+chrome.management.getSelf((info) => {
+  if (info.installType === 'development') {
+    setInterval(() => {
+      performSweep();
+    }, 5000);
+  }
+});
+
 async function performSweep() {
   const { enabled, threshold, tabsBuried } = await chrome.storage.sync.get(['enabled', 'threshold', 'tabsBuried']);
 
