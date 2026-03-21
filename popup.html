@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="cemetery-container">
+        <h1>Tab Cemetery 🪦</h1>
+        <p class="subtitle">Burying inactive tabs.</p>
+
+        <div class="setting-row">
+            <label for="enabledToggle">Reaper Status</label>
+            <label class="switch">
+                <input type="checkbox" id="enabledToggle">
+                <span class="slider round"></span>
+            </label>
+        </div>
+
+        <div class="setting-row">
+            <label for="thresholdSelect">Inactivity Threshold</label>
+            <select id="thresholdSelect" class="dark-select">
+                <option value="1800000">30 Minutes</option>
+                <option value="3600000">1 Hour</option>
+                <option value="7200000">2 Hours</option>
+                <option value="18000000">5 Hours</option>
+                <option value="86400000">24 Hours</option>
+            </select>
+        </div>
+
+        <div class="stats-card">
+            <div class="stat-number" id="buriedCount">0</div>
+            <div class="stat-label">Tabs Buried</div>
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>
