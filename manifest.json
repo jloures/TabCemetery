@@ -5,7 +5,10 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "{d57bc4e9-2917-4fd5-8716-e4d6a19f201d}",
-      "strict_min_version": "109.0"
+      "strict_min_version": "109.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
     }
   },
   "description": "Automatically closes inactive browser tabs to reduce memory usage and visual clutter.",
@@ -15,9 +18,10 @@
     "alarms"
   ],
   "background": {
-    "scripts": ["background.js"],
-    "service_worker": "background.js",
-    "type": "module"
+    "scripts": [
+      "background.js"
+    ],
+    "service_worker": "background.js"
   },
   "action": {
     "default_popup": "popup.html",
