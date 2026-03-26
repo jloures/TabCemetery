@@ -13,7 +13,6 @@
   },
   "description": "Automatically closes inactive browser tabs to reduce memory usage and visual clutter.",
   "permissions": [
-    "tabs",
     "storage",
     "alarms"
   ],
