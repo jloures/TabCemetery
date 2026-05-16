@@ -1,39 +1,118 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="popup.css">
 </head>
+
 <body>
     <div class="cemetery-container">
-        <h1>Tab Cemetery 🪦</h1>
-        <p class="subtitle">Burying inactive tabs.</p>
+        <header>
+            <h1>Tab Cemetery <span class="emoji">🪦</span></h1>
+            <p class="subtitle">Bury inactive tabs · Restore anytime</p>
+        </header>
 
-        <div class="setting-row">
-            <label for="enabledToggle">Reaper Status</label>
-            <label class="switch">
-                <input type="checkbox" id="enabledToggle">
-                <span class="slider round"></span>
-            </label>
-        </div>
+        <nav class="tabs" role="tablist">
+            <button class="tab active" data-tab="home" role="tab">Home</button>
+            <button class="tab" data-tab="graveyard" role="tab">Graveyard</button>
+            <button class="tab" data-tab="rules" role="tab">Rules</button>
+            <button class="tab" data-tab="stats" role="tab">Stats</button>
+        </nav>
 
-        <div class="setting-row">
-            <label for="thresholdSelect">Inactivity Threshold</label>
-            <select id="thresholdSelect" class="dark-select">
-                <option value="1800000">30 Minutes</option>
-                <option value="3600000">1 Hour</option>
-                <option value="7200000">2 Hours</option>
-                <option value="18000000">5 Hours</option>
-                <option value="86400000">24 Hours</option>
-            </select>
-        </div>
+        <main>
+            <section id="tab-home" class="tab-panel active">
+                <div class="setting-row">
+                    <label for="enabledToggle">Reaper Status</label>
+                    <label class="switch">
+                        <input type="checkbox" id="enabledToggle">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
 
-        <div class="stats-card">
-            <div class="stat-number" id="buriedCount">0</div>
-            <div class="stat-label">Tabs Buried</div>
-        </div>
+                <div class="setting-row">
+                    <label for="modeSelect">Mode</label>
+                    <select id="modeSelect" class="dark-select">
+                        <option value="close">Close (snapshot saved)</option>
+                        <option value="discard">Discard (free RAM, keep tab)</option>
+                        <option value="group">Group into 🪦 Cemetery</option>
+                    </select>
+                </div>
+
+                <div class="setting-row">
+                    <label for="thresholdSelect">Inactivity</label>
+                    <select id="thresholdSelect" class="dark-select">
+                        <option value="600000">10 Minutes</option>
+                        <option value="1800000">30 Minutes</option>
+                        <option value="3600000">1 Hour</option>
+                        <option value="7200000">2 Hours</option>
+                        <option value="18000000">5 Hours</option>
+                        <option value="86400000">24 Hours</option>
+                    </select>
+                </div>
+
+                <div class="checkbox-grid">
+                    <label class="cbox"><input type="checkbox" id="respectIdle"> Pause while I'm active</label>
+                    <label class="cbox"><input type="checkbox" id="notifyOnBury"> Notify on bury</label>
+                    <label class="cbox"><input type="checkbox" id="excludePinned"> Skip pinned</label>
+                    <label class="cbox"><input type="checkbox" id="excludeAudible"> Skip audible</label>
+                    <label class="cbox"><input type="checkbox" id="excludeGrouped"> Skip grouped</label>
+                    <label class="cbox"><input type="checkbox" id="excludeIncognito"> Skip incognito</label>
+                </div>
+
+                <div class="actions">
+                    <button id="buryNowBtn" class="btn primary">Bury Idle Now</button>
+                    <button id="restoreLastBtn" class="btn">Restore Last</button>
+                </div>
+            </section>
+
+            <section id="tab-graveyard" class="tab-panel">
+                <div class="list-header">
+                    <span><span id="graveCount">0</span> tabs buried</span>
+                    <div>
+                        <button id="restoreAllBtn" class="link-btn">Restore all</button>
+                        <button id="emptyGraveBtn" class="link-btn danger">Empty</button>
+                    </div>
+                </div>
+                <input type="text" id="graveSearch" class="search" placeholder="Search title or URL">
+                <ul id="graveList" class="list"></ul>
+            </section>
+
+            <section id="tab-rules" class="tab-panel">
+                <p class="muted">URL patterns that will never be buried. Use <code>*</code> as wildcard.</p>
+                <div class="add-rule">
+                    <input type="text" id="ruleInput" placeholder="*://*.example.com/*">
+                    <button id="addRuleBtn" class="btn small">Add</button>
+                </div>
+                <ul id="ruleList" class="list"></ul>
+            </section>
+
+            <section id="tab-stats" class="tab-panel">
+                <div class="stat-grid">
+                    <div class="stats-card">
+                        <div class="stat-number" id="totalBuried">0</div>
+                        <div class="stat-label">Total Buried</div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stat-number" id="todayBuried">0</div>
+                        <div class="stat-label">Today</div>
+                    </div>
+                    <div class="stats-card wide">
+                        <div class="stat-number" id="ramSaved">0 MB</div>
+                        <div class="stat-label">Est. RAM Saved</div>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button id="resetStatsBtn" class="btn small">Reset Stats</button>
+                </div>
+            </section>
+        </main>
+
+        <div id="toast" class="toast"></div>
     </div>
+    <script src="utils.js"></script>
     <script src="popup.js"></script>
 </body>
+
 </html>
