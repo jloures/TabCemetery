@@ -25,3 +25,13 @@ yarn-error.log*
 
 # Archives
 *.zip
+*.xpi
+
+# AMO / web-ext build artifacts
+.amo-upload-uuid
+web-ext-artifacts/
+
+# npm (only used for signing)
+node_modules/
+package.json
+package-lock.json
